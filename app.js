@@ -12,6 +12,7 @@ require("./database/initDatabase");
 const authRoutes = require("./routes/authRoutes");
 const lostRoutes = require("./routes/lostRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const foundRoutes = require("./routes/foundRoutes");
 
 const app = express();
 
@@ -47,15 +48,9 @@ app.get("/", (req, res) => {
 app.use(authRoutes);
 app.use(lostRoutes);
 app.use(dashboardRoutes);
+app.use(foundRoutes);
 
 // Temporary Routes
-
-app.get("/found-items", (req, res) => {
-    res.render("foundItems", {
-        title: "Found Items"
-    });
-});
-
 
 
 app.get("/profile", (req, res) => {
@@ -64,12 +59,6 @@ app.get("/profile", (req, res) => {
     });
 });
 
-
-app.get("/add-found", (req, res) => {
-    res.render("addFound", {
-        title: "Report Found Item"
-    });
-});
 
 app.get("/chat", (req, res) => {
     res.render("chat", {

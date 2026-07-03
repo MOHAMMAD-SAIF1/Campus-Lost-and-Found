@@ -1,16 +1,53 @@
 <%- include("partials/header") %>
-
 <%- include("partials/navbar") %>
 
-<h1 class="page-title">
+<div class="container">
 
-Found Items
+    <h1>Found Items</h1>
 
-</h1>
+    <a class="btn-primary" href="/add-found">
+        + Report Found Item
+    </a>
 
-<div class="items-container">
+    <br><br>
 
-Coming Soon...
+    <% if(items.length === 0){ %>
+
+        <h3>No Found Items Available</h3>
+
+    <% } else { %>
+
+        <% items.forEach(item => { %>
+
+            <div class="feature-card">
+
+                <h2><%= item.title %></h2>
+
+                <p><strong>Category:</strong> <%= item.category %></p>
+
+                <p><strong>Description:</strong> <%= item.description %></p>
+
+                <p><strong>Location:</strong> <%= item.location %></p>
+
+                <p><strong>Status:</strong> <%= item.status %></p>
+
+                <p><strong>Reported By:</strong> <%= item.full_name %></p>
+
+                <br>
+
+                <a
+                    class="btn-primary"
+                    href="/delete-found/<%= item.id %>">
+                    Delete
+                </a>
+
+            </div>
+
+            <br>
+
+        <% }) %>
+
+    <% } %>
 
 </div>
 
