@@ -23,17 +23,11 @@ exports.addLostItem = (req, res) => {
     const item = {
 
         user_id: req.session.user.id,
-
         title: req.body.title,
-
         category: req.body.category,
-
         description: req.body.description,
-
         location: req.body.location,
-
-        image: "",
-
+        image: "default-item.png",
         lost_date: new Date().toISOString().split("T")[0]
 
     };
@@ -50,7 +44,7 @@ exports.addLostItem = (req, res) => {
 
 };
 
-// View All Lost Items
+// Show All Lost Items
 exports.showLostItems = (req, res) => {
 
     LostItem.getAllLostItems((err, items) => {
@@ -60,11 +54,8 @@ exports.showLostItems = (req, res) => {
         }
 
         res.render("lostItems", {
-
             title: "Lost Items",
-
             items
-
         });
 
     });
