@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= title %></title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <% if(title==="Login" || title==="Register"){ %>
+        <link rel="stylesheet" href="/css/login.css">
+    <% } %>
+
+    <% if(title==="Dashboard" || title==="Lost Items" || title==="Found Items"){ %>
+        <link rel="stylesheet" href="/css/dashboard.css">
+    <% } %>
+
+    <% if(title==="Profile"){ %>
+        <link rel="stylesheet" href="/css/profile.css">
+    <% } %>
+
+    <% if(title==="Chat"){ %>
+        <link rel="stylesheet" href="/css/chat.css">
+    <% } %>
+
+</head>
+
+<body>

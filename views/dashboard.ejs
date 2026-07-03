@@ -1,0 +1,110 @@
+<%- include("partials/header") %>
+
+<%- include("partials/navbar") %>
+
+<div class="container">
+
+<h1>
+
+Welcome,
+<%= user.full_name %>
+
+👋
+
+</h1>
+
+<br>
+
+<div class="dashboard-cards">
+
+<div class="card">
+
+<h3>Lost Items</h3>
+
+<h1><%= totalLost %></h1>
+
+</div>
+
+<div class="card">
+
+<h3>Found Items</h3>
+
+<h1><%= totalFound %></h1>
+
+</div>
+
+<div class="card">
+
+<h3>Matches</h3>
+
+<h1>0</h1>
+
+</div>
+
+</div>
+
+<br>
+
+<a class="btn-primary" href="/add-lost">
+
+Report Lost Item
+
+</a>
+
+<a class="btn-primary" href="/add-found">
+
+Report Found Item
+
+</a>
+
+<br><br>
+
+<h2>
+
+Recent Lost Items
+
+</h2>
+
+<% if(recentItems.length===0){ %>
+
+<p>
+
+No Lost Items Yet
+
+</p>
+
+<% } else { %>
+
+<% recentItems.forEach(item=>{ %>
+
+<div class="feature-card">
+
+<h3>
+
+<%= item.title %>
+
+</h3>
+
+<p>
+
+<%= item.category %>
+
+</p>
+
+<p>
+
+<%= item.location %>
+
+</p>
+
+</div>
+
+<br>
+
+<% }) %>
+
+<% } %>
+
+</div>
+
+<%- include("partials/footer") %>
