@@ -27,7 +27,7 @@ exports.addLostItem = (req, res) => {
         category: req.body.category,
         description: req.body.description,
         location: req.body.location,
-        image: "default-item.png",
+        image: req.file ? req.file.filename : "default-item.png",
         lost_date: new Date().toISOString().split("T")[0]
 
     };
