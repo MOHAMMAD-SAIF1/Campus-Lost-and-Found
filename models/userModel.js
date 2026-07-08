@@ -1,15 +1,17 @@
 const db = require("../config/database");
 
-// Find user by email
+// Find User by Email
 const findUserByEmail = (email, callback) => {
+
     db.get(
         "SELECT * FROM users WHERE email = ?",
         [email],
         callback
     );
+
 };
 
-// Create a new user
+// Create User
 const createUser = (user, callback) => {
 
     const sql = `
@@ -28,12 +30,46 @@ const createUser = (user, callback) => {
         ],
         callback
     );
+
+};
+
+// Get User By ID
+const getUserById = (id, callback) => {
+
+    db.get(
+        "SELECT * FROM users WHERE id = ?",
+        [id],
+        callback
+    );
+
+};
+
+// Update Profile
+const updateProfile = (user, callback) => {
+
+    db.run(
+        `
+        UPDATE users
+        SET
+            full_name = ?,
+            phone = ?
+        WHERE id = ?
+        `,
+        [
+            user.full_name,
+            user.phone,
+            user.id
+        ],
+        callback
+    );
+
 };
 
 module.exports = {
 
     findUserByEmail,
-
-    createUser
+    createUser,
+    getUserById,
+    updateProfile
 
 };

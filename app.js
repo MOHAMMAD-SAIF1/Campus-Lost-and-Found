@@ -10,6 +10,7 @@ require("./database/initDatabase");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 const lostRoutes = require("./routes/lostRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const foundRoutes = require("./routes/foundRoutes");
@@ -46,19 +47,12 @@ app.get("/", (req, res) => {
 
 // Authentication Routes
 app.use(authRoutes);
+app.use(userRoutes);
 app.use(lostRoutes);
 app.use(dashboardRoutes);
 app.use(foundRoutes);
 
 // Temporary Routes
-
-
-app.get("/profile", (req, res) => {
-    res.render("profile", {
-        title: "Profile"
-    });
-});
-
 
 app.get("/chat", (req, res) => {
     res.render("chat", {

@@ -2,10 +2,61 @@
 
 <%- include("partials/navbar") %>
 
-<h1 class="page-title">
+<div class="form-container">
 
-My Profile
+    <div class="form-box">
 
-</h1>
+        <h2>My Profile</h2>
+
+        <form action="/profile" method="POST">
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    name="full_name"
+                    value="<%= user.full_name %>"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    class="form-control"
+                    type="email"
+                    value="<%= user.email %>"
+                    readonly>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Phone Number</label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    name="phone"
+                    value="<%= user.phone %>">
+
+            </div>
+
+            <br>
+
+            <button class="btn-submit">
+                Update Profile
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 <%- include("partials/footer") %>
