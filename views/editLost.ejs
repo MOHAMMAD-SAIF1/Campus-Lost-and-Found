@@ -1,0 +1,111 @@
+<%- include("partials/header") %>
+
+<%- include("partials/navbar") %>
+
+<div class="form-container">
+
+    <div class="form-box">
+
+        <h2>Edit Lost Item</h2>
+
+        <form
+            action="/edit-lost/<%= item.id %>"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <div class="form-group">
+
+                <label>Item Name</label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    name="title"
+                    value="<%= item.title %>"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    name="category"
+                    value="<%= item.category %>"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    class="form-control"
+                    name="description"
+                    rows="4"
+                    required
+                ><%= item.description %></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Location</label>
+
+                <input
+                    class="form-control"
+                    type="text"
+                    name="location"
+                    value="<%= item.location %>"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Current Image</label>
+
+                <br><br>
+
+                <img
+                    src="/uploads/<%= item.image %>"
+                    alt="Lost Item"
+                    style="width:220px;border-radius:10px;"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Change Image</label>
+
+                <input
+                    class="form-control"
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                >
+
+            </div>
+
+            <button class="btn-submit">
+
+                Update Lost Item
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<%- include("partials/footer") %>

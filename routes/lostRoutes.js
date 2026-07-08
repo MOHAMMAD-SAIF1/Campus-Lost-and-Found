@@ -15,8 +15,29 @@ router.post(
     lostController.addLostItem
 );
 
+// Search Lost Items
+router.get("/search-lost", lostController.searchLostItems);
+
 // View Items
 router.get("/lost-items", lostController.showLostItems);
+
+// =======================
+// Edit Lost Item
+// =======================
+
+// Show Edit Page
+router.get(
+    "/edit-lost/:id",
+    lostController.showEditLostPage
+);
+
+// Update Lost Item
+router.post(
+    "/edit-lost/:id",
+    upload.single("image"),
+    lostController.updateLostItem
+);
+
 
 // Delete
 router.get("/delete-lost/:id", lostController.deleteLostItem);

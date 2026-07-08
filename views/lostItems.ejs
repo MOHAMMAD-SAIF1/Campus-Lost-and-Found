@@ -4,6 +4,32 @@
 
 <div class="container">
 
+    <form action="/search-lost" method="GET">
+
+        <input
+            class="form-control"
+            type="text"
+            name="keyword"
+            value="<%= typeof keyword !== 'undefined' ? keyword : '' %>"
+            placeholder="Search by item name, category or location"
+        >
+
+        <br>
+
+        <button class="btn-submit">
+            Search
+        </button>
+
+        &nbsp;
+
+        <a class="btn-primary" href="/lost-items">
+            Clear
+        </a>
+
+    </form>
+
+    <br>
+
     <h1>Lost Items</h1>
 
     <a class="btn-primary" href="/add-lost">
@@ -22,11 +48,11 @@
 
             <div class="feature-card">
 
-                <!-- Item Image -->
                 <img
                     src="/uploads/<%= item.image %>"
                     alt="Item Image"
-                    class="item-image">
+                    class="item-image"
+                >
 
                 <h2><%= item.title %></h2>
 
@@ -56,6 +82,12 @@
                 </p>
 
                 <br>
+
+                <a class="btn-primary" href="/edit-lost/<%= item.id %>">
+                    Edit
+                </a>
+
+                &nbsp;
 
                 <a class="btn-primary" href="/delete-lost/<%= item.id %>">
                     Delete
