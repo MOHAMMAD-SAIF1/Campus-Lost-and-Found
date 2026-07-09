@@ -1,109 +1,112 @@
 <%- include("partials/header") %>
-
 <%- include("partials/navbar") %>
 
 <div class="container">
 
-<h1>
+    <div class="dashboard-header">
 
-Welcome,
-<%= user.full_name %>
+        <h1>Welcome, <%= user.full_name %> 👋</h1>
 
-👋
+        <p>
+            Manage your lost and found items from one place.
+        </p>
 
-</h1>
+    </div>
 
-<br>
+    <div class="dashboard-cards">
 
-<div class="dashboard-cards">
+        <div class="card">
 
-<div class="card">
+            <h3>Total Users</h3>
 
-<h3>Lost Items</h3>
+            <h2><%= totalUsers %></h2>
 
-<h1><%= totalLost %></h1>
+        </div>
 
-</div>
+        <div class="card">
 
-<div class="card">
+            <h3>Lost Items</h3>
 
-<h3>Found Items</h3>
+            <h2><%= totalLost %></h2>
 
-<h1><%= totalFound %></h1>
+        </div>
 
-</div>
+        <div class="card">
 
-<div class="card">
+            <h3>Found Items</h3>
 
-<h3>Matches</h3>
+            <h2><%= totalFound %></h2>
 
-<h1>0</h1>
+        </div>
 
-</div>
+    </div>
 
-</div>
+    <div class="dashboard-actions">
 
-<br>
+        <a href="/add-lost" class="btn-primary">
+            Report Lost Item
+        </a>
 
-<a class="btn-primary" href="/add-lost">
+        <a href="/add-found" class="btn-primary">
+            Report Found Item
+        </a>
 
-Report Lost Item
+    </div>
 
-</a>
+    <div class="recent-section">
 
-<a class="btn-primary" href="/add-found">
+        <h2>Recent Lost Items</h2>
 
-Report Found Item
+        <% if(recentItems.length === 0){ %>
 
-</a>
+            <p>No lost items have been reported yet.</p>
 
-<br><br>
+        <% } else { %>
 
-<h2>
+            <% recentItems.forEach(item => { %>
 
-Recent Lost Items
+                <div class="feature-card">
 
-</h2>
+                    <img
+                        src="/uploads/<%= item.image %>"
+                        class="item-image"
+                        alt="Item Image">
 
-<% if(recentItems.length===0){ %>
+                    <h3><%= item.title %></h3>
 
-<p>
+                    <p>
 
-No Lost Items Yet
+                        <strong>Category:</strong>
 
-</p>
+                        <%= item.category %>
 
-<% } else { %>
+                    </p>
 
-<% recentItems.forEach(item=>{ %>
+                    <p>
 
-<div class="feature-card">
+                        <strong>Location:</strong>
 
-<h3>
+                        <%= item.location %>
 
-<%= item.title %>
+                    </p>
 
-</h3>
+                    <p>
 
-<p>
+                        <strong>Status:</strong>
 
-<%= item.category %>
+                        <%= item.status %>
 
-</p>
+                    </p>
 
-<p>
+                </div>
 
-<%= item.location %>
+                <br>
 
-</p>
+            <% }) %>
 
-</div>
+        <% } %>
 
-<br>
-
-<% }) %>
-
-<% } %>
+    </div>
 
 </div>
 

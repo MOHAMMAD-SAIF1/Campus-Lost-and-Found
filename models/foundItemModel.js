@@ -60,3 +60,43 @@ exports.deleteFoundItem = (id, callback) => {
     );
 
 };
+
+
+// Search Found Items
+exports.searchFoundItems = (keyword, callback) => {
+
+    const sql = `
+        SELECT
+            found_items.*,
+            users.full_name
+        FROM found_items
+        JOIN users
+        ON users.id = found_items.user_id
+        WHERE
+            title LIKE ?
+            OR category LIKE ?
+            OR location LIKE ?
+        ORDER BY found_items.id DESC
+    `;
+
+    db.all(
+        sql,
+        [
+            `%${keyword}%`,
+            `%${keyword}%`,
+            `%${keyword}%`
+        ],
+        callback
+    );
+
+};
+
+// Total Found Items
+exports.getTotalFoundItems = (callback) => {
+
+    db.get(
+        "SELECT COUNT(*) AS total FROM found_items",
+        callback
+    );
+
+};

@@ -76,3 +76,24 @@ exports.deleteFoundItem = (req, res) => {
     });
 
 };
+
+// Search Found Items
+exports.searchFoundItems = (req, res) => {
+
+    const keyword = req.query.keyword;
+
+    FoundItem.searchFoundItems(keyword, (err, items) => {
+
+        if (err) {
+            return res.send(err.message);
+        }
+
+        res.render("foundItems", {
+            title: "Found Items",
+            items,
+            keyword
+        });
+
+    });
+
+};

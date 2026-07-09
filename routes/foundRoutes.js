@@ -16,4 +16,10 @@ router.get("/found-items", foundController.showFoundItems);
 // Delete Found Item
 router.get("/delete-found/:id", foundController.deleteFoundItem);
 
+
+router.get(
+    "/search-found",
+    foundController.searchFoundItems
+);
+
 module.exports = router;

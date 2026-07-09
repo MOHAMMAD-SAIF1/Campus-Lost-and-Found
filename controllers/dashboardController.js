@@ -1,4 +1,6 @@
-const db = require("../config/database");
+const User = require("../models/userModel");
+const LostItem = require("../models/lostItemModel");
+const FoundItem = require("../models/foundItemModel");
 
 exports.dashboard = (req, res) => {
 
@@ -6,50 +8,38 @@ exports.dashboard = (req, res) => {
         return res.redirect("/login");
     }
 
-    const userId = req.session.user.id;
+    User.getTotalUsers((err, users) => {
 
-    db.get(
-        "SELECT COUNT(*) AS totalLost FROM lost_items WHERE user_id=?",
-        [userId],
-        (err, lostResult) => {
+        if (err) return res.send(err.message);
+
+        LostItem.getTotalLostItems((err, lost) => {
 
             if (err) return res.send(err.message);
 
-            db.get(
-                "SELECT COUNT(*) AS totalFound FROM found_items WHERE user_id=?",
-                [userId],
-                (err, foundResult) => {
+            FoundItem.getTotalFoundItems((err, found) => {
+
+                if (err) return res.send(err.message);
+
+                // Get Recent Lost Items
+                LostItem.getRecentLostItems((err, recentItems) => {
 
                     if (err) return res.send(err.message);
 
-                    db.all(
-                        "SELECT * FROM lost_items WHERE user_id=? ORDER BY id DESC LIMIT 5",
-                        [userId],
-                        (err, recentItems) => {
+                    res.render("dashboard", {
+                        title: "Dashboard",
+                        user: req.session.user,
+                        totalUsers: users.total,
+                        totalLost: lost.total,
+                        totalFound: found.total,
+                        recentItems: recentItems
+                    });
 
-                            if (err) return res.send(err.message);
+                });
 
-                            res.render("dashboard", {
+            });
 
-                                title: "Dashboard",
+        });
 
-                                user: req.session.user,
-
-                                totalLost: lostResult.totalLost,
-
-                                totalFound: foundResult.totalFound,
-
-                                recentItems
-
-                            });
-
-                        }
-                    );
-
-                }
-            );
-
-        }
-    );
+    });
 
 };

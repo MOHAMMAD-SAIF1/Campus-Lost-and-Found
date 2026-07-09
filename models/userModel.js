@@ -65,11 +65,22 @@ const updateProfile = (user, callback) => {
 
 };
 
+// Total Users
+const getTotalUsers = (callback) => {
+
+    db.get(
+        "SELECT COUNT(*) AS total FROM users",
+        callback
+    );
+
+};
+
 module.exports = {
 
     findUserByEmail,
     createUser,
     getUserById,
-    updateProfile
+    updateProfile,
+    getTotalUsers
 
 };

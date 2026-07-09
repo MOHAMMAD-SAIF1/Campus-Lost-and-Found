@@ -1,53 +1,101 @@
 <%- include("partials/header") %>
+
 <%- include("partials/navbar") %>
 
 <div class="container">
 
-    <h1>Found Items</h1>
+<form action="/search-found" method="GET">
 
-    <a class="btn-primary" href="/add-found">
-        + Report Found Item
-    </a>
+    <input
+        class="form-control"
+        type="text"
+        name="keyword"
+        value="<%= typeof keyword !== 'undefined' ? keyword : '' %>"
+        placeholder="Search by item, category or location">
 
-    <br><br>
+    <br>
 
-    <% if(items.length === 0){ %>
+    <button class="btn-submit">
+        Search
+    </button>
 
-        <h3>No Found Items Available</h3>
+</form>
 
-    <% } else { %>
+<br>
 
-        <% items.forEach(item => { %>
+<h1>Found Items</h1>
 
-            <div class="feature-card">
+<a class="btn-primary" href="/add-found">
+    + Report Found Item
+</a>
 
-                <h2><%= item.title %></h2>
+<br><br>
 
-                <p><strong>Category:</strong> <%= item.category %></p>
+<% if(items.length===0){ %>
 
-                <p><strong>Description:</strong> <%= item.description %></p>
+<h3>No Found Items Available</h3>
 
-                <p><strong>Location:</strong> <%= item.location %></p>
+<% } else { %>
 
-                <p><strong>Status:</strong> <%= item.status %></p>
+<% items.forEach(item=>{ %>
 
-                <p><strong>Reported By:</strong> <%= item.full_name %></p>
+<div class="feature-card">
 
-                <br>
+<img
+    src="/uploads/<%= item.image %>"
+    alt="Item Image"
+    class="item-image">
 
-                <a
-                    class="btn-primary"
-                    href="/delete-found/<%= item.id %>">
-                    Delete
-                </a>
+<h2><%= item.title %></h2>
 
-            </div>
+<p>
+<strong>Category:</strong>
+<%= item.category %>
+</p>
 
-            <br>
+<p>
+<strong>Description:</strong>
+<%= item.description %>
+</p>
 
-        <% }) %>
+<p>
+<strong>Location:</strong>
+<%= item.location %>
+</p>
 
-    <% } %>
+<p>
+<strong>Status:</strong>
+<%= item.status %>
+</p>
+
+<p>
+<strong>Reported By:</strong>
+<%= item.full_name %>
+</p>
+
+<br>
+
+<a
+class="btn-primary"
+href="/edit-found/<%= item.id %>">
+Edit
+</a>
+
+&nbsp;
+
+<a
+class="btn-primary"
+href="/delete-found/<%= item.id %>">
+Delete
+</a>
+
+</div>
+
+<br>
+
+<% }) %>
+
+<% } %>
 
 </div>
 

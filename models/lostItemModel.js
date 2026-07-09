@@ -113,3 +113,27 @@ exports.searchLostItems = (keyword, callback) => {
     db.all(sql, [search, search, search], callback);
 
 };
+
+// Total Lost Items
+exports.getTotalLostItems = (callback) => {
+
+    db.get(
+        "SELECT COUNT(*) AS total FROM lost_items",
+        callback
+    );
+
+};
+
+// Get Recent Lost Items
+exports.getRecentLostItems = (callback) => {
+
+    const sql = `
+        SELECT *
+        FROM lost_items
+        ORDER BY id DESC
+        LIMIT 5
+    `;
+
+    db.all(sql, callback);
+
+};
