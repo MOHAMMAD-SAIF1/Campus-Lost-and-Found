@@ -14,6 +14,7 @@ const userRoutes = require("./routes/userRoutes");
 const lostRoutes = require("./routes/lostRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const foundRoutes = require("./routes/foundRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
 
@@ -30,6 +31,15 @@ app.use(
         saveUninitialized: false
     })
 );
+
+// Make logged-in user available in all EJS views
+app.use((req, res, next) => {
+
+    res.locals.user = req.session.user || null;
+
+    next();
+
+});
 
 // Static Files
 app.use(express.static(path.join(__dirname, "public")));
@@ -51,7 +61,7 @@ app.use(userRoutes);
 app.use(lostRoutes);
 app.use(dashboardRoutes);
 app.use(foundRoutes);
-
+app.use(notificationRoutes);
 // Temporary Routes
 
 app.get("/chat", (req, res) => {

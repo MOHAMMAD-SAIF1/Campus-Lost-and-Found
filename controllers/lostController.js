@@ -171,3 +171,88 @@ exports.searchLostItems = (req, res) => {
     });
 
 };
+
+
+
+const FoundItem = require("../models/foundItemModel");
+
+exports.showMatches = (req, res) => {
+
+    LostItem.getLostItemById(req.params.id, (err, lostItem) => {
+
+        if (err) {
+            return res.send(err.message);
+        }
+
+        if (!lostItem) {
+            return res.send("Lost Item Not Found");
+        }
+
+        // Get ALL found items
+        FoundItem.getAllFoundItems((err, foundItems) => {
+
+            if (err) {
+                return res.send(err.message);
+            }
+
+            const matches = [];
+
+            foundItems.forEach(item => {
+
+                let score = 0;
+
+                // Category Match
+                if (
+                    item.category.toLowerCase() ===
+                    lostItem.category.toLowerCase()
+                ) {
+                    score += 40;
+                }
+
+                // Location Match
+                if (
+                    item.location.toLowerCase() ===
+                    lostItem.location.toLowerCase()
+                ) {
+                    score += 30;
+                }
+
+                // Title Match
+                if (
+                    item.title.toLowerCase().includes(
+                        lostItem.title.toLowerCase()
+                    ) ||
+                    lostItem.title.toLowerCase().includes(
+                        item.title.toLowerCase()
+                    )
+                ) {
+                    score += 30;
+                }
+
+                if (score >= 50) {
+
+                    item.matchScore = score;
+
+                    matches.push(item);
+
+                }
+
+            });
+
+            matches.sort((a, b) => b.matchScore - a.matchScore);
+
+            res.render("matches", {
+
+                title: "Possible Matches",
+
+                lostItem,
+
+                matches
+
+            });
+
+        });
+
+    });
+
+};

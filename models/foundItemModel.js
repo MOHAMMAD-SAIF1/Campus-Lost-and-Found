@@ -100,3 +100,26 @@ exports.getTotalFoundItems = (callback) => {
     );
 
 };
+
+
+// Find Possible Matching Found Items
+exports.findMatchingItems = (lostItem, callback) => {
+
+    const sql = `
+        SELECT *
+        FROM found_items
+        WHERE
+            category = ?
+            AND location LIKE ?
+    `;
+
+    db.all(
+        sql,
+        [
+            lostItem.category,
+            `%${lostItem.location}%`
+        ],
+        callback
+    );
+
+};

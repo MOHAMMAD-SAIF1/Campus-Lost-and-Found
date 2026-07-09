@@ -1,0 +1,72 @@
+<%- include("partials/header") %>
+
+<%- include("partials/navbar") %>
+
+<div class="container">
+
+    <h1>Possible Matches</h1>
+
+    <br>
+
+    <h2>Lost Item</h2>
+
+    <div class="feature-card">
+
+        <h3><%= lostItem.title %></h3>
+
+        <p><strong>Category:</strong> <%= lostItem.category %></p>
+
+        <p><strong>Location:</strong> <%= lostItem.location %></p>
+
+        <p><strong>Description:</strong> <%= lostItem.description %></p>
+
+    </div>
+
+    <br>
+
+    <h2>Matching Found Items</h2>
+
+    <% if(matches.length === 0){ %>
+
+<h3>No matching found items.</h3>
+
+<% } else { %>
+
+<% matches.forEach(item => { %>
+
+<div class="feature-card">
+
+    <h2><%= item.title %></h2>
+
+    <p>
+        <strong>Category:</strong>
+        <%= item.category %>
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        <%= item.location %>
+    </p>
+
+    <p>
+        <strong>Description:</strong>
+        <%= item.description %>
+    </p>
+
+    <h3 style="color:green">
+
+        Match Score :
+        <%= item.matchScore %>%
+
+    </h3>
+
+</div>
+
+<br>
+
+<% }) %>
+
+<% } %>
+</div>
+
+<%- include("partials/footer") %>

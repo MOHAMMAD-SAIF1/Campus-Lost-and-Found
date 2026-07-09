@@ -1,4 +1,7 @@
 const FoundItem = require("../models/foundItemModel");
+const LostItem = require("../models/lostItemModel");
+const Notification = require("../models/notificationModel");
+
 
 // Show Add Found Item Page
 exports.showAddFoundPage = (req, res) => {
@@ -12,6 +15,7 @@ exports.showAddFoundPage = (req, res) => {
     });
 
 };
+
 
 // Add Found Item
 exports.addFoundItem = (req, res) => {
@@ -38,7 +42,62 @@ exports.addFoundItem = (req, res) => {
             return res.send(err.message);
         }
 
-        res.redirect("/found-items");
+        // Check all lost items
+        LostItem.getAllLostItems((err, lostItems) => {
+
+            if (err) {
+                return res.redirect("/found-items");
+            }
+
+            lostItems.forEach(lost => {
+
+                let score = 0;
+
+                // Category Match
+                if (
+                    lost.category.toLowerCase() ===
+                    item.category.toLowerCase()
+                ) {
+                    score += 40;
+                }
+
+                // Location Match
+                if (
+                    lost.location.toLowerCase() ===
+                    item.location.toLowerCase()
+                ) {
+                    score += 30;
+                }
+
+                // Title Match
+                if (
+                    lost.title.toLowerCase().includes(item.title.toLowerCase()) ||
+                    item.title.toLowerCase().includes(lost.title.toLowerCase())
+                ) {
+                    score += 30;
+                }
+
+                // If score is high enough, create notification
+                if (score >= 50) {
+
+                    Notification.createNotification({
+
+                        user_id: lost.user_id,
+
+                        message:
+                            `Possible match found for "${lost.title}" (${score}% match)`,
+
+                        item_id: lost.id
+
+                    }, () => {});
+
+                }
+
+            });
+
+            res.redirect("/found-items");
+
+        });
 
     });
 

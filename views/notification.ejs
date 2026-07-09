@@ -2,10 +2,43 @@
 
 <%- include("partials/navbar") %>
 
-<h1 class="page-title">
+<div class="container">
 
-Notifications
+    <h1>Notifications</h1>
 
-</h1>
+    <br>
+
+    <% if(notifications.length === 0){ %>
+
+        <div class="feature-card">
+            <h3>No Notifications Yet 🔔</h3>
+            <p>You'll see possible item matches here.</p>
+        </div>
+
+    <% } else { %>
+
+        <% notifications.forEach(notification => { %>
+
+            <div class="feature-card">
+
+                <h3>🔔 Notification</h3>
+
+                <p>
+                    <%= notification.message %>
+                </p>
+
+                <small>
+                    <%= notification.created_at %>
+                </small>
+
+            </div>
+
+            <br>
+
+        <% }) %>
+
+    <% } %>
+
+</div>
 
 <%- include("partials/footer") %>

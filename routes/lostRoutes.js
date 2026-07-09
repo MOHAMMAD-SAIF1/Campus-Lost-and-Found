@@ -42,4 +42,7 @@ router.post(
 // Delete
 router.get("/delete-lost/:id", lostController.deleteLostItem);
 
+// View Possible Matches
+router.get("/matches/:id", lostController.showMatches);
+
 module.exports = router;
