@@ -14,11 +14,20 @@
 
         <h3><%= lostItem.title %></h3>
 
-        <p><strong>Category:</strong> <%= lostItem.category %></p>
+        <p>
+            <strong>Category:</strong>
+            <%= lostItem.category %>
+        </p>
 
-        <p><strong>Location:</strong> <%= lostItem.location %></p>
+        <p>
+            <strong>Location:</strong>
+            <%= lostItem.location %>
+        </p>
 
-        <p><strong>Description:</strong> <%= lostItem.description %></p>
+        <p>
+            <strong>Description:</strong>
+            <%= lostItem.description %>
+        </p>
 
     </div>
 
@@ -28,45 +37,96 @@
 
     <% if(matches.length === 0){ %>
 
-<h3>No matching found items.</h3>
+        <h3>No matching found items.</h3>
 
-<% } else { %>
+    <% } else { %>
 
-<% matches.forEach(item => { %>
+        <% matches.forEach(item => { %>
 
-<div class="feature-card">
+            <div class="feature-card">
 
-    <h2><%= item.title %></h2>
+                <h2><%= item.title %></h2>
 
-    <p>
-        <strong>Category:</strong>
-        <%= item.category %>
-    </p>
+                <p>
+                    <strong>Category:</strong>
+                    <%= item.category %>
+                </p>
 
-    <p>
-        <strong>Location:</strong>
-        <%= item.location %>
-    </p>
+                <p>
+                    <strong>Location:</strong>
+                    <%= item.location %>
+                </p>
 
-    <p>
-        <strong>Description:</strong>
-        <%= item.description %>
-    </p>
+                <p>
+                    <strong>Description:</strong>
+                    <%= item.description %>
+                </p>
 
-    <h3 style="color:green">
+                <h3 style="color:green;">
+                    Match Score: <%= item.matchScore %>%
+                </h3>
 
-        Match Score :
-        <%= item.matchScore %>%
+                <br>
 
-    </h3>
+                <!-- Chat Button -->
+                <a
+                    class="btn-primary"
+                    href="/chat/<%= item.user_id %>">
+                    Contact Finder
+                </a>
 
-</div>
+                <br><br>
 
-<br>
+                <!-- Claim Request Form -->
+                <form action="/submit-claim" method="POST">
 
-<% }) %>
+                    <input
+                        type="hidden"
+                        name="lost_item_id"
+                        value="<%= lostItem.id %>">
 
-<% } %>
+                    <input
+                        type="hidden"
+                        name="found_item_id"
+                        value="<%= item.id %>">
+
+                    <input
+                        type="hidden"
+                        name="finder_id"
+                        value="<%= item.user_id %>">
+
+                    <label>
+                        Why do you believe this item is yours?
+                    </label>
+
+                    <br><br>
+
+                    <textarea
+                        name="proof"
+                        class="form-control"
+                        rows="4"
+                        required></textarea>
+
+                    <br>
+
+                    <button
+                        type="submit"
+                        class="btn-primary">
+
+                        Request Claim
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <br>
+
+        <% }) %>
+
+    <% } %>
+
 </div>
 
 <%- include("partials/footer") %>

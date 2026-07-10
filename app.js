@@ -15,6 +15,8 @@ const lostRoutes = require("./routes/lostRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const foundRoutes = require("./routes/foundRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
+const chatRoutes = require("./routes/chatRoutes");
+const claimRoutes = require("./routes/claimRoutes");
 
 const app = express();
 
@@ -62,13 +64,11 @@ app.use(lostRoutes);
 app.use(dashboardRoutes);
 app.use(foundRoutes);
 app.use(notificationRoutes);
-// Temporary Routes
+app.use(chatRoutes);
+app.use(claimRoutes);
 
-app.get("/chat", (req, res) => {
-    res.render("chat", {
-        title: "Chat"
-    });
-});
+
+// Temporary Routes
 
 app.get("/notifications", (req, res) => {
     res.render("notification", {

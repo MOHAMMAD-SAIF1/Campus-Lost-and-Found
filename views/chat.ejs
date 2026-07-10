@@ -2,10 +2,59 @@
 
 <%- include("partials/navbar") %>
 
-<h1 class="page-title">
+<div class="container">
 
-Chat
+<h1>Chat</h1>
 
-</h1>
+<br>
+
+<div class="feature-card">
+
+<% if(messages.length===0){ %>
+
+<p>No messages yet.</p>
+
+<% } %>
+
+<% messages.forEach(msg=>{ %>
+
+<div style="margin-bottom:15px;">
+
+<strong>
+
+<%= msg.sender_id===user.id ? "You" : "Finder" %>
+
+</strong>
+
+<br>
+
+<%= msg.message %>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<br>
+
+<form method="POST">
+
+<textarea
+name="message"
+class="form-control"
+required></textarea>
+
+<br>
+
+<button class="btn-primary">
+
+Send
+
+</button>
+
+</form>
+
+</div>
 
 <%- include("partials/footer") %>

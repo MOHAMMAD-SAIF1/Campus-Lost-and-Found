@@ -59,3 +59,34 @@ CREATE TABLE IF NOT EXISTS notifications (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
+
+
+
+-- CLAIM REQUESTS
+CREATE TABLE IF NOT EXISTS claims (
+
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    lost_item_id INTEGER NOT NULL,
+
+    found_item_id INTEGER NOT NULL,
+
+    claimant_id INTEGER NOT NULL,
+
+    finder_id INTEGER NOT NULL,
+
+    proof TEXT NOT NULL,
+
+    status TEXT DEFAULT 'Pending',
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY(lost_item_id) REFERENCES lost_items(id),
+
+    FOREIGN KEY(found_item_id) REFERENCES found_items(id),
+
+    FOREIGN KEY(claimant_id) REFERENCES users(id),
+
+    FOREIGN KEY(finder_id) REFERENCES users(id)
+
+);

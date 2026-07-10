@@ -1,0 +1,81 @@
+<%- include("partials/header") %>
+
+<%- include("partials/navbar") %>
+
+<div class="container">
+
+<h1>Claim Requests</h1>
+
+<br>
+
+<% if(claims.length===0){ %>
+
+<h3>No Claim Requests</h3>
+
+<% } else { %>
+
+<% claims.forEach(claim=>{ %>
+
+<div class="feature-card">
+
+<h2><%= claim.title %></h2>
+
+<p>
+
+<strong>Requested By:</strong>
+
+<%= claim.full_name %>
+
+</p>
+
+<p>
+
+<strong>Proof:</strong>
+
+<%= claim.proof %>
+
+</p>
+
+<p>
+
+<strong>Status:</strong>
+
+<%= claim.status %>
+
+</p>
+
+<br>
+
+<% if(claim.status==="Pending"){ %>
+
+<a
+class="btn-primary"
+href="/approve-claim/<%= claim.id %>">
+
+Approve
+
+</a>
+
+&nbsp;
+
+<a
+class="btn-primary"
+href="/reject-claim/<%= claim.id %>">
+
+Reject
+
+</a>
+
+<% } %>
+
+</div>
+
+<br>
+
+<% }) %>
+
+<% } %>
+
+</div>
+
+<%- include("partials/footer") %>
