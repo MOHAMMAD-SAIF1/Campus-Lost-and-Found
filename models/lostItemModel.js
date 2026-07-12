@@ -137,3 +137,19 @@ exports.getRecentLostItems = (callback) => {
     db.all(sql, callback);
 
 };
+
+
+// Update Lost Item Status
+exports.updateStatus = (id, status, callback) => {
+
+    db.run(
+        `
+        UPDATE lost_items
+        SET status = ?
+        WHERE id = ?
+        `,
+        [status, id],
+        callback
+    );
+
+};

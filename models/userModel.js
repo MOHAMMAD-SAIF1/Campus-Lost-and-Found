@@ -75,12 +75,68 @@ const getTotalUsers = (callback) => {
 
 };
 
+
+// Total Users
+// const getTotalUsers = (callback) => {
+
+//     db.get(
+//         "SELECT COUNT(*) AS total FROM users",
+//         callback
+//     );
+
+// };
+
+// Get All Users
+const getAllUsers = (callback) => {
+
+    db.all(
+        `
+        SELECT
+            id,
+            full_name,
+            email,
+            phone,
+            role,
+            created_at
+        FROM users
+        ORDER BY id DESC
+        `,
+        callback
+    );
+
+};
+
+// Delete User
+const deleteUser = (id, callback) => {
+
+    db.run(
+        "DELETE FROM users WHERE id=?",
+        [id],
+        callback
+    );
+
+};
+
+// Update User Role
+const updateRole = (id, role, callback) => {
+
+    db.run(
+        "UPDATE users SET role=? WHERE id=?",
+        [role, id],
+        callback
+    );
+
+};
+
 module.exports = {
 
     findUserByEmail,
     createUser,
     getUserById,
     updateProfile,
-    getTotalUsers
+    getTotalUsers,
+    getAllUsers,
+    deleteUser,
+    updateRole
 
 };

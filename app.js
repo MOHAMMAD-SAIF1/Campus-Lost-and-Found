@@ -17,6 +17,8 @@ const foundRoutes = require("./routes/foundRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const claimRoutes = require("./routes/claimRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
 
 const app = express();
 
@@ -66,6 +68,7 @@ app.use(foundRoutes);
 app.use(notificationRoutes);
 app.use(chatRoutes);
 app.use(claimRoutes);
+app.use(adminRoutes);
 
 
 // Temporary Routes
@@ -76,11 +79,6 @@ app.get("/notifications", (req, res) => {
     });
 });
 
-app.get("/admin", (req, res) => {
-    res.render("adminDashboard", {
-        title: "Admin Dashboard"
-    });
-});
 
 // 404 Page
 app.use((req, res) => {

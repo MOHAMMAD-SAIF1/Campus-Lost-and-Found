@@ -123,3 +123,19 @@ exports.findMatchingItems = (lostItem, callback) => {
     );
 
 };
+
+
+// Update Found Item Status
+exports.updateStatus = (id, status, callback) => {
+
+    db.run(
+        `
+        UPDATE found_items
+        SET status = ?
+        WHERE id = ?
+        `,
+        [status, id],
+        callback
+    );
+
+};

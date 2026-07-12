@@ -1,0 +1,99 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %>
+
+<div class="container">
+
+<h1>Manage Users</h1>
+
+<br>
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
+
+<tr>
+
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Role</th>
+<th>Actions</th>
+
+</tr>
+
+<% users.forEach(user => { %>
+
+<tr>
+
+<td><%= user.id %></td>
+
+<td><%= user.full_name %></td>
+
+<td><%= user.email %></td>
+
+<td><%= user.phone %></td>
+
+<td>
+
+<% if(user.role==="admin"){ %>
+
+<span style="color:red;font-weight:bold">
+Admin
+</span>
+
+<% } else { %>
+
+<span style="color:green;font-weight:bold">
+User
+</span>
+
+<% } %>
+
+</td>
+
+<td>
+
+<% if(user.id!==currentUser.id){ %>
+
+<a href="/admin/delete-user/<%= user.id %>">
+
+Delete
+
+</a>
+
+|
+
+<% if(user.role==="user"){ %>
+
+<a href="/admin/role/<%= user.id %>/admin">
+
+Make Admin
+
+</a>
+
+<% } else { %>
+
+<a href="/admin/role/<%= user.id %>/user">
+
+Make User
+
+</a>
+
+<% } %>
+
+<% } else { %>
+
+<b>Current Admin</b>
+
+<% } %>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</div>
+
+<%- include("partials/footer") %>

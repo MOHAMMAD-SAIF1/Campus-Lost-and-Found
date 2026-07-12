@@ -1,4 +1,7 @@
 const Claim = require("../models/claimModel");
+const LostItem = require("../models/lostItemModel");
+const FoundItem = require("../models/foundItemModel");
+const Notification = require("../models/notificationModel");
 
 // Submit Claim
 exports.submitClaim = (req, res) => {
@@ -64,40 +67,96 @@ exports.showClaims = (req, res) => {
 
 };
 
-// Approve
+// Approve Claim
 exports.approveClaim = (req, res) => {
 
-    Claim.updateStatus(
+    Claim.getClaimById(req.params.id, (err, claim) => {
 
-        req.params.id,
-
-        "Approved",
-
-        () => {
-
-            res.redirect("/claims");
-
+        if (err) {
+            return res.send(err.message);
         }
 
-    );
+        Claim.updateClaimStatus(claim.id, "Approved", (err) => {
+
+            if (err) {
+                return res.send(err.message);
+            }
+
+            LostItem.updateStatus(claim.lost_item_id, "Returned", (err) => {
+
+                if (err) {
+                    return res.send(err.message);
+                }
+
+                FoundItem.updateStatus(claim.found_item_id, "Returned", (err) => {
+
+                    if (err) {
+                        return res.send(err.message);
+                    }
+
+                    Notification.createNotification({
+
+                        user_id: claim.claimant_id,
+
+                        message: "🎉 Your claim has been approved!",
+
+                        item_id: claim.lost_item_id
+
+                    }, (err) => {
+
+                        if (err) {
+                            return res.send(err.message);
+                        }
+
+                        res.redirect("/claims");
+
+                    });
+
+                });
+
+            });
+
+        });
+
+    });
 
 };
 
-// Reject
+// Reject Claim
 exports.rejectClaim = (req, res) => {
 
-    Claim.updateStatus(
+    Claim.getClaimById(req.params.id, (err, claim) => {
 
-        req.params.id,
-
-        "Rejected",
-
-        () => {
-
-            res.redirect("/claims");
-
+        if (err) {
+            return res.send(err.message);
         }
 
-    );
+        Claim.updateClaimStatus(claim.id, "Rejected", (err) => {
+
+            if (err) {
+                return res.send(err.message);
+            }
+
+            Notification.createNotification({
+
+                user_id: claim.claimant_id,
+
+                message: "❌ Your claim has been rejected.",
+
+                item_id: claim.lost_item_id
+
+            }, (err) => {
+
+                if (err) {
+                    return res.send(err.message);
+                }
+
+                res.redirect("/claims");
+
+            });
+
+        });
+
+    });
 
 };

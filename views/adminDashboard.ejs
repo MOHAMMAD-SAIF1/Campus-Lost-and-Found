@@ -2,10 +2,42 @@
 
 <%- include("partials/navbar") %>
 
-<h1 class="page-title">
+<div class="container">
 
-Admin Dashboard
+    <h1>Admin Dashboard</h1>
 
-</h1>
+    <br>
+
+    <div class="dashboard-cards">
+
+        <div class="card">
+            <h3>Total Users</h3>
+            <h1><%= totalUsers %></h1>
+        </div>
+
+        <div class="card">
+            <h3>Lost Items</h3>
+            <h1><%= totalLost %></h1>
+        </div>
+
+        <div class="card">
+            <h3>Found Items</h3>
+            <h1><%= totalFound %></h1>
+        </div>
+
+        <div class="card">
+            <h3>Total Claims</h3>
+            <h1><%= totalClaims %></h1>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <a class="btn-primary" href="/admin/users">
+        👥 Manage Users
+    </a>
+
+</div>
 
 <%- include("partials/footer") %>
