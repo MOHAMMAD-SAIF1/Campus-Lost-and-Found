@@ -314,28 +314,6 @@ http://localhost:3000
 
 ---
 
-# 📸 Screenshots
-
-Add screenshots here.
-
-Example:
-
-```
-Home Page
-
-Dashboard
-
-Lost Items
-
-Found Items
-
-Claims
-
-Admin Dashboard
-```
-
----
-
 # 👥 User Roles
 
 ## Student/User
