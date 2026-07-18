@@ -6,10 +6,11 @@
             🎒 Campus Lost & Found
         </a>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbar">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbar">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -17,11 +18,12 @@
 
         <div class="collapse navbar-collapse" id="navbar">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
 
                 <li class="nav-item">
                     <a class="nav-link" href="/">
-                        <i class="bi bi-house-fill"></i> Home
+                        <i class="bi bi-house-fill"></i>
+                        Home
                     </a>
                 </li>
 
@@ -29,62 +31,104 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">
-                            <i class="bi bi-speedometer2"></i> Dashboard
+                            <i class="bi bi-speedometer2"></i>
+                            Dashboard
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/lost-items">
-                            <i class="bi bi-search"></i> Lost Items
+                            <i class="bi bi-search"></i>
+                            Lost Items
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/found-items">
-                            <i class="bi bi-box-seam"></i> Found Items
+                            <i class="bi bi-box-seam"></i>
+                            Found Items
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/claims">
-                            <i class="bi bi-file-earmark-check"></i> Claims
+                            <i class="bi bi-file-earmark-check"></i>
+                            Claims
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">
-                            <i class="bi bi-person-circle"></i> Profile
+                            <i class="bi bi-person-circle"></i>
+                            Profile
                         </a>
                     </li>
 
-                    <% if(user.role === "admin"){ %>
+                    <% if(user.role==="admin"){ %>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">
-                            <i class="bi bi-shield-lock-fill"></i> Admin
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">
+                                <i class="bi bi-shield-lock-fill"></i>
+                                Admin
+                            </a>
+                        </li>
 
                     <% } %>
 
-                    <li class="nav-item">
+                    <!-- Dark Mode Button -->
+
+                    <li class="nav-item ms-lg-3">
+
+                        <button
+                            id="themeToggle"
+                            class="btn btn-outline-light btn-sm">
+
+                            🌙 Dark Mode
+
+                        </button>
+
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+
                         <a class="nav-link text-warning" href="/logout">
-                            <i class="bi bi-box-arrow-right"></i> Logout
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                            Logout
+
                         </a>
+
                     </li>
 
                 <% } else { %>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/login">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Login
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/register">
-                            <i class="bi bi-person-plus-fill"></i> Register
+                            <i class="bi bi-person-plus-fill"></i>
+                            Register
                         </a>
+                    </li>
+
+                    <!-- Dark Mode Button -->
+
+                    <li class="nav-item ms-lg-3">
+
+                        <button
+                            id="themeToggle"
+                            class="btn btn-outline-light btn-sm">
+
+                            🌙 Dark Mode
+
+                        </button>
+
                     </li>
 
                 <% } %>
