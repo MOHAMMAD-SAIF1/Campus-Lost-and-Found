@@ -1,101 +1,201 @@
 <%- include("partials/header") %>
-
 <%- include("partials/navbar") %>
 
-<div class="container">
+<div class="container py-5">
 
-<form action="/search-found" method="GET">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <input
-        class="form-control"
-        type="text"
-        name="keyword"
-        value="<%= typeof keyword !== 'undefined' ? keyword : '' %>"
-        placeholder="Search by item, category or location">
+        <div>
 
-    <br>
+            <h1 class="fw-bold">
+                📦 Found Items
+            </h1>
 
-    <button class="btn-submit">
-        Search
-    </button>
+            <p class="text-muted">
+                Browse all found items reported on campus.
+            </p>
 
-</form>
+        </div>
 
-<br>
+        <a href="/add-found" class="btn btn-success">
 
-<h1>Found Items</h1>
+            <i class="bi bi-plus-circle"></i>
 
-<a class="btn-primary" href="/add-found">
-    + Report Found Item
-</a>
+            Report Found Item
 
-<br><br>
+        </a>
 
-<% if(items.length===0){ %>
+    </div>
 
-<h3>No Found Items Available</h3>
+    <!-- Search -->
 
-<% } else { %>
+    <div class="card shadow-sm border-0 mb-5">
 
-<% items.forEach(item=>{ %>
+        <div class="card-body">
 
-<div class="feature-card">
+            <form action="/search-found" method="GET">
 
-<img
-    src="/uploads/<%= item.image %>"
-    alt="Item Image"
-    class="item-image">
+                <div class="row">
 
-<h2><%= item.title %></h2>
+                    <div class="col-md-10">
 
-<p>
-<strong>Category:</strong>
-<%= item.category %>
-</p>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="keyword"
+                            value="<%= typeof keyword !== 'undefined' ? keyword : '' %>"
+                            placeholder="Search by title, category or location">
 
-<p>
-<strong>Description:</strong>
-<%= item.description %>
-</p>
+                    </div>
 
-<p>
-<strong>Location:</strong>
-<%= item.location %>
-</p>
+                    <div class="col-md-2 d-grid">
 
-<p>
-<strong>Status:</strong>
-<%= item.status %>
-</p>
+                        <button class="btn btn-primary">
 
-<p>
-<strong>Reported By:</strong>
-<%= item.full_name %>
-</p>
+                            <i class="bi bi-search"></i>
 
-<br>
+                            Search
 
-<a
-class="btn-primary"
-href="/edit-found/<%= item.id %>">
-Edit
-</a>
+                        </button>
 
-&nbsp;
+                    </div>
 
-<a
-class="btn-primary"
-href="/delete-found/<%= item.id %>">
-Delete
-</a>
+                </div>
 
-</div>
+            </form>
 
-<br>
+        </div>
 
-<% }) %>
+    </div>
 
-<% } %>
+    <% if(items.length===0){ %>
+
+        <div class="alert alert-warning">
+
+            No Found Items Available.
+
+        </div>
+
+    <% } else { %>
+
+        <div class="row">
+
+            <% items.forEach(item=>{ %>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="card shadow h-100 border-0">
+
+                        <img
+                            src="/uploads/<%= item.image %>"
+                            class="card-img-top"
+                            style="height:240px; object-fit:cover;"
+                            alt="Item Image">
+
+                        <div class="card-body">
+
+                            <h4 class="fw-bold">
+
+                                <%= item.title %>
+
+                            </h4>
+
+                            <p>
+
+                                <span class="badge bg-success">
+
+                                    <%= item.category %>
+
+                                </span>
+
+                            </p>
+
+                            <p>
+
+                                <strong>Description</strong><br>
+
+                                <%= item.description %>
+
+                            </p>
+
+                            <p>
+
+                                <i class="bi bi-geo-alt-fill text-danger"></i>
+
+                                <%= item.location %>
+
+                            </p>
+
+                            <p>
+
+                                <i class="bi bi-person-fill text-primary"></i>
+
+                                <%= item.full_name %>
+
+                            </p>
+
+                            <p>
+
+                                <strong>Status:</strong>
+
+                                <% if(item.status==="Found"){ %>
+
+                                    <span class="badge bg-primary">
+
+                                        Found
+
+                                    </span>
+
+                                <% } else { %>
+
+                                    <span class="badge bg-success">
+
+                                        Returned
+
+                                    </span>
+
+                                <% } %>
+
+                            </p>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a href="/edit-found/<%= item.id %>"
+                                   class="btn btn-warning">
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                    Edit
+
+                                </a>
+
+                                <a href="/delete-found/<%= item.id %>"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Delete this item?')">
+
+                                    <i class="bi bi-trash-fill"></i>
+
+                                    Delete
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
 
 </div>
 

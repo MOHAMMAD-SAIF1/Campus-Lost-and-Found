@@ -1,26 +1,47 @@
 <%- include("partials/header") %>
-
 <%- include("partials/navbar") %>
 
-<section class="hero">
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
 
-    <div class="hero-content">
+    <div class="container">
 
-        <h1>Campus Lost & Found Platform</h1>
+        <div class="row align-items-center">
 
-        <p>
-            Helping students recover their lost belongings quickly and securely.
-        </p>
+            <div class="col-lg-6">
 
-        <div class="hero-buttons">
+                <h1 class="display-4 fw-bold">
+                    🎒 Campus Lost & Found Platform
+                </h1>
 
-            <a href="/add-lost" class="btn-primary">
-                Report Lost Item
-            </a>
+                <p class="lead mt-3">
+                    A secure platform that helps students report lost items,
+                    find belongings, connect with finders, and recover valuables
+                    quickly through smart matching.
+                </p>
 
-            <a href="/add-found" class="btn-secondary">
-                Report Found Item
-            </a>
+                <div class="mt-4">
+
+                    <a href="/add-lost" class="btn btn-light btn-lg me-3">
+                        Report Lost Item
+                    </a>
+
+                    <a href="/add-found" class="btn btn-warning btn-lg">
+                        Report Found Item
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img src="/images/lostfound.jpg"
+                     class="img-fluid"
+                     style="max-height:350px;"
+                     alt="Campus Lost and Found">
+
+            </div>
 
         </div>
 
@@ -28,35 +49,239 @@
 
 </section>
 
-<section class="features">
+<!-- Features -->
+<section class="container py-5">
 
-    <div class="feature-card">
+    <h2 class="text-center mb-5">
+        Why Choose Our Platform?
+    </h2>
 
-        <h2>🔍 Report Lost Items</h2>
+    <div class="row g-4">
 
-        <p>
-            Report missing belongings with images and descriptions.
-        </p>
+        <div class="col-md-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1>🔍</h1>
+
+                    <h4>Report Lost Items</h4>
+
+                    <p>
+
+                        Easily report lost belongings with descriptions and images.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1>🎒</h1>
+
+                    <h4>Smart Matching</h4>
+
+                    <p>
+
+                        Match lost and found items using category, location,
+                        and description.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1>💬</h1>
+
+                    <h4>Secure Communication</h4>
+
+                    <p>
+
+                        Contact finders securely through chat and claim requests.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="feature-card">
+</section>
 
-        <h2>🎒 Found Items</h2>
+<!-- How It Works -->
+<section class="bg-light py-5">
 
-        <p>
-            Browse items that have been found on campus.
-        </p>
+    <div class="container">
+
+        <h2 class="text-center mb-5">
+
+            How It Works
+
+        </h2>
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <h1>1️⃣</h1>
+
+                <h5>Register</h5>
+
+                <p>Create your account securely.</p>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h1>2️⃣</h1>
+
+                <h5>Report Item</h5>
+
+                <p>Report a lost or found item with details.</p>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h1>3️⃣</h1>
+
+                <h5>Find Matches</h5>
+
+                <p>Our system identifies possible matching items.</p>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h1>4️⃣</h1>
+
+                <h5>Recover Item</h5>
+
+                <p>Submit a claim and recover your belongings.</p>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="feature-card">
+</section>
 
-        <h2>💬 Contact Finder</h2>
+<!-- Project Features -->
+<section class="container py-5">
 
-        <p>
-            Chat securely with the finder once a match is found.
-        </p>
+    <h2 class="text-center mb-5">
+
+        Platform Features
+
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    ✅ User Authentication
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    ✅ Smart Item Matching
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    ✅ Claim Management
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    ✅ Notifications
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    ✅ User Chat
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    ✅ Admin Dashboard
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

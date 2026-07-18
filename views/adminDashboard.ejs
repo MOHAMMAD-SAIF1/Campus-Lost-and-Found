@@ -2,42 +2,290 @@
 
 <%- include("partials/navbar") %>
 
-<div class="container">
+<div class="container py-5">
 
-    <h1>Admin Dashboard</h1>
+    <div class="text-center mb-5">
 
-    <br>
+        <h1 class="fw-bold">
 
-    <div class="dashboard-cards">
+            📊 Admin Dashboard
 
-        <div class="card">
-            <h3>Total Users</h3>
-            <h1><%= totalUsers %></h1>
+        </h1>
+
+        <p class="text-muted">
+
+            Monitor users, lost items, found items and claim activities.
+
+        </p>
+
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <h5>Total Users</h5>
+
+                    <h1 class="text-primary">
+
+                        <%= totalUsers %>
+
+                    </h1>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Lost Items</h3>
-            <h1><%= totalLost %></h1>
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <h5>Lost Items</h5>
+
+                    <h1 class="text-danger">
+
+                        <%= totalLost %>
+
+                    </h1>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Found Items</h3>
-            <h1><%= totalFound %></h1>
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <h5>Found Items</h5>
+
+                    <h1 class="text-success">
+
+                        <%= totalFound %>
+
+                    </h1>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Total Claims</h3>
-            <h1><%= totalClaims %></h1>
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 text-center">
+
+                <div class="card-body">
+
+                    <h5>Total Claims</h5>
+
+                    <h1 class="text-warning">
+
+                        <%= totalClaims %>
+
+                    </h1>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
-    <br><br>
+    <!-- Charts -->
 
-    <a class="btn-primary" href="/admin/users">
-        👥 Manage Users
-    </a>
+    <div class="row">
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h4 class="text-center mb-4">
+
+                        System Statistics
+
+                    </h4>
+
+                    <canvas id="barChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h4 class="text-center mb-4">
+
+                        Lost vs Found
+
+                    </h4>
+
+                    <canvas id="pieChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Manage Users -->
+
+    <div class="text-center mt-4">
+
+        <a href="/admin/users" class="btn btn-primary btn-lg">
+
+            👥 Manage Users
+
+        </a>
+
+    </div>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const barCtx = document.getElementById("barChart");
+
+new Chart(barCtx,{
+
+    type:"bar",
+
+    data:{
+
+        labels:[
+
+            "Users",
+
+            "Lost",
+
+            "Found",
+
+            "Claims"
+
+        ],
+
+        datasets:[{
+
+            label:"Campus Statistics",
+
+            data:[
+
+                <%= totalUsers %>,
+
+                <%= totalLost %>,
+
+                <%= totalFound %>,
+
+                <%= totalClaims %>
+
+            ],
+
+            backgroundColor:[
+
+                "#0d6efd",
+
+                "#dc3545",
+
+                "#198754",
+
+                "#ffc107"
+
+            ]
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                display:false
+
+            }
+
+        }
+
+    }
+
+});
+
+const pieCtx=document.getElementById("pieChart");
+
+new Chart(pieCtx,{
+
+    type:"pie",
+
+    data:{
+
+        labels:[
+
+            "Lost",
+
+            "Found"
+
+        ],
+
+        datasets:[{
+
+            data:[
+
+                <%= totalLost %>,
+
+                <%= totalFound %>
+
+            ],
+
+            backgroundColor:[
+
+                "#dc3545",
+
+                "#198754"
+
+            ]
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true
+
+    }
+
+});
+
+</script>
 
 <%- include("partials/footer") %>

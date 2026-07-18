@@ -1,35 +1,98 @@
-<nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
 
-    <div class="logo">
-        Campus Lost & Found
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            🎒 Campus Lost & Found
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="bi bi-house-fill"></i> Home
+                    </a>
+                </li>
+
+                <% if(user){ %>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lost-items">
+                            <i class="bi bi-search"></i> Lost Items
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/found-items">
+                            <i class="bi bi-box-seam"></i> Found Items
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/claims">
+                            <i class="bi bi-file-earmark-check"></i> Claims
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">
+                            <i class="bi bi-person-circle"></i> Profile
+                        </a>
+                    </li>
+
+                    <% if(user.role === "admin"){ %>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">
+                            <i class="bi bi-shield-lock-fill"></i> Admin
+                        </a>
+                    </li>
+
+                    <% } %>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="/logout">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+
+                <% } else { %>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            <i class="bi bi-person-plus-fill"></i> Register
+                        </a>
+                    </li>
+
+                <% } %>
+
+            </ul>
+
+        </div>
+
     </div>
-
-    <ul>
-
-        <li><a href="/">Home</a></li>
-
-        <% if(user){ %>
-
-            <li><a href="/dashboard">Dashboard</a></li>
-
-            <li><a href="/lost-items">Lost Items</a></li>
-
-            <li><a href="/found-items">Found Items</a></li>
-
-            <li><a href="/profile">Profile</a></li>
-
-            <li><a href="/claims">Claims</a></li>
-
-            <li><a href="/logout">Logout</a></li>
-
-        <% } else { %>
-
-            <li><a href="/login">Login</a></li>
-
-            <li><a href="/register">Register</a></li>
-
-        <% } %>
-
-    </ul>
 
 </nav>
