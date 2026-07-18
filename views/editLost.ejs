@@ -2,107 +2,322 @@
 
 <%- include("partials/navbar") %>
 
-<div class="form-container">
+<div class="container py-5">
 
-    <div class="form-box">
+    <div class="row justify-content-center align-items-center">
 
-        <h2>Edit Lost Item</h2>
+        <!-- Left Side -->
 
-        <form
-            action="/edit-lost/<%= item.id %>"
-            method="POST"
-            enctype="multipart/form-data"
-        >
+        <div class="col-lg-5 d-none d-lg-block">
 
-            <div class="form-group">
-
-                <label>Item Name</label>
-
-                <input
-                    class="form-control"
-                    type="text"
-                    name="title"
-                    value="<%= item.title %>"
-                    required
-                >
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Category</label>
-
-                <input
-                    class="form-control"
-                    type="text"
-                    name="category"
-                    value="<%= item.category %>"
-                    required
-                >
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Description</label>
-
-                <textarea
-                    class="form-control"
-                    name="description"
-                    rows="4"
-                    required
-                ><%= item.description %></textarea>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Location</label>
-
-                <input
-                    class="form-control"
-                    type="text"
-                    name="location"
-                    value="<%= item.location %>"
-                    required
-                >
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Current Image</label>
-
-                <br><br>
+            <div class="text-center">
 
                 <img
                     src="/uploads/<%= item.image %>"
-                    alt="Lost Item"
-                    style="width:220px;border-radius:10px;"
-                >
+                    class="img-fluid rounded shadow"
+                    style="max-height:350px; object-fit:cover;"
+                    alt="Lost Item">
+
+                <h2 class="mt-4 fw-bold">
+
+                    Edit Lost Item
+
+                </h2>
+
+                <p class="text-muted">
+
+                    Update your lost item's information to improve the chances
+                    of finding a match.
+
+                </p>
+
+                <div class="alert alert-danger mt-4">
+
+                    <strong>🤖 Smart Matching</strong>
+
+                    <br>
+
+                    Updating details helps the AI matching system provide
+                    more accurate results.
+
+                </div>
 
             </div>
 
-            <div class="form-group">
+        </div>
 
-                <label>Change Image</label>
+        <!-- Right Side -->
 
-                <input
-                    class="form-control"
-                    type="file"
-                    name="image"
-                    accept="image/*"
-                >
+        <div class="col-lg-7">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-danger text-white text-center py-4">
+
+                    <h2>
+
+                        <i class="bi bi-pencil-square"></i>
+
+                        Update Lost Item
+
+                    </h2>
+
+                    <p class="mb-0">
+
+                        Modify the information below.
+
+                    </p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form
+                        action="/edit-lost/<%= item.id %>"
+                        method="POST"
+                        enctype="multipart/form-data">
+
+                        <!-- Item Name -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Item Name
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-box-seam-fill"></i>
+
+                                </span>
+
+                                <input
+
+                                    type="text"
+
+                                    class="form-control"
+
+                                    name="title"
+
+                                    value="<%= item.title %>"
+
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Category -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Category
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-grid-fill"></i>
+
+                                </span>
+
+                                <select
+
+                                    class="form-select"
+
+                                    name="category"
+
+                                    required>
+
+                                    <option <%= item.category==="Laptop"?"selected":"" %>>Laptop</option>
+                                    <option <%= item.category==="Mobile"?"selected":"" %>>Mobile</option>
+                                    <option <%= item.category==="Wallet"?"selected":"" %>>Wallet</option>
+                                    <option <%= item.category==="ID Card"?"selected":"" %>>ID Card</option>
+                                    <option <%= item.category==="Bag"?"selected":"" %>>Bag</option>
+                                    <option <%= item.category==="Keys"?"selected":"" %>>Keys</option>
+                                    <option <%= item.category==="Watch"?"selected":"" %>>Watch</option>
+                                    <option <%= item.category==="Books"?"selected":"" %>>Books</option>
+                                    <option <%= item.category==="Other"?"selected":"" %>>Other</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Description -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Description
+
+                            </label>
+
+                            <textarea
+
+                                class="form-control"
+
+                                rows="5"
+
+                                name="description"
+
+                                required><%= item.description %></textarea>
+
+                        </div>
+
+                        <!-- Location -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Lost Location
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-geo-alt-fill"></i>
+
+                                </span>
+
+                                <input
+
+                                    type="text"
+
+                                    class="form-control"
+
+                                    name="location"
+
+                                    value="<%= item.location %>"
+
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Current Image -->
+
+                        <div class="mb-3 text-center">
+
+                            <label class="form-label fw-semibold">
+
+                                Current Image
+
+                            </label>
+
+                            <br>
+
+                            <img
+
+                                src="/uploads/<%= item.image %>"
+
+                                class="img-fluid rounded shadow"
+
+                                style="max-height:220px; object-fit:cover;"
+
+                                alt="Current Image">
+
+                        </div>
+
+                        <!-- Upload New Image -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+
+                                Replace Image (Optional)
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-image-fill"></i>
+
+                                </span>
+
+                                <input
+
+                                    type="file"
+
+                                    class="form-control"
+
+                                    name="image"
+
+                                    accept="image/*">
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                Leave this blank if you want to keep the current image.
+
+                            </small>
+
+                        </div>
+
+                        <!-- Buttons -->
+
+                        <div class="d-grid gap-2">
+
+                            <button
+
+                                type="submit"
+
+                                class="btn btn-danger btn-lg">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Update Lost Item
+
+                            </button>
+
+                            <a
+
+                                href="/lost-items"
+
+                                class="btn btn-outline-secondary">
+
+                                <i class="bi bi-arrow-left"></i>
+
+                                Back to Lost Items
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="card-footer text-center bg-light">
+
+                    <small class="text-muted">
+
+                        💡 Keeping your item details updated improves matching accuracy.
+
+                    </small>
+
+                </div>
 
             </div>
 
-            <button class="btn-submit">
-
-                Update Lost Item
-
-            </button>
-
-        </form>
+        </div>
 
     </div>
 

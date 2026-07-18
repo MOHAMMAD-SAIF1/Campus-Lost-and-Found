@@ -2,79 +2,215 @@
 
 <%- include("partials/navbar") %>
 
-<div class="container">
+<div class="container py-5">
 
-<h1>Claim Requests</h1>
+    <div class="text-center mb-5">
 
-<br>
+        <h1 class="fw-bold">
 
-<% if(claims.length===0){ %>
+            📋 Claim Requests
 
-<h3>No Claim Requests</h3>
+        </h1>
 
-<% } else { %>
+        <p class="text-muted">
 
-<% claims.forEach(claim=>{ %>
+            Review, approve or reject ownership claims submitted by users.
 
-<div class="feature-card">
+        </p>
 
-<h2><%= claim.title %></h2>
+    </div>
 
-<p>
+    <% if(claims.length===0){ %>
 
-<strong>Requested By:</strong>
+        <div class="alert alert-info text-center">
 
-<%= claim.full_name %>
+            <h4>
 
-</p>
+                😊 No Claim Requests Available
 
-<p>
+            </h4>
 
-<strong>Proof:</strong>
+        </div>
 
-<%= claim.proof %>
+    <% } else { %>
 
-</p>
+        <div class="row">
 
-<p>
+            <% claims.forEach(claim=>{ %>
 
-<strong>Status:</strong>
+                <div class="col-lg-6 mb-4">
 
-<%= claim.status %>
+                    <div class="card shadow border-0 h-100">
 
-</p>
+                        <div class="card-header bg-primary text-white">
 
-<br>
+                            <h4 class="mb-0">
 
-<% if(claim.status==="Pending"){ %>
+                                <i class="bi bi-box-seam-fill"></i>
 
-<a
-class="btn-primary"
-href="/approve-claim/<%= claim.id %>">
+                                <%= claim.title %>
 
-Approve
+                            </h4>
 
-</a>
+                        </div>
 
-&nbsp;
+                        <div class="card-body">
 
-<a
-class="btn-primary"
-href="/reject-claim/<%= claim.id %>">
+                            <p>
 
-Reject
+                                <strong>
 
-</a>
+                                    <i class="bi bi-person-fill text-primary"></i>
 
-<% } %>
+                                    Requested By
 
-</div>
+                                </strong>
 
-<br>
+                                <br>
 
-<% }) %>
+                                <%= claim.full_name %>
 
-<% } %>
+                            </p>
+
+                            <hr>
+
+                            <p>
+
+                                <strong>
+
+                                    <i class="bi bi-file-earmark-text-fill text-success"></i>
+
+                                    Ownership Proof
+
+                                </strong>
+
+                            </p>
+
+                            <div class="alert alert-light border">
+
+                                <%= claim.proof %>
+
+                            </div>
+
+                            <p>
+
+                                <strong>
+
+                                    <i class="bi bi-shield-check"></i>
+
+                                    Status
+
+                                </strong>
+
+                                <br>
+
+                                <% if(claim.status==="Pending"){ %>
+
+                                    <span class="badge bg-warning text-dark fs-6">
+
+                                        ⏳ Pending Review
+
+                                    </span>
+
+                                <% } %>
+
+                                <% if(claim.status==="Approved"){ %>
+
+                                    <span class="badge bg-success fs-6">
+
+                                        ✅ Approved
+
+                                    </span>
+
+                                <% } %>
+
+                                <% if(claim.status==="Rejected"){ %>
+
+                                    <span class="badge bg-danger fs-6">
+
+                                        ❌ Rejected
+
+                                    </span>
+
+                                <% } %>
+
+                            </p>
+
+                            <hr>
+
+                            <div class="alert alert-info">
+
+                                <strong>
+
+                                    🤖 AI Recommendation
+
+                                </strong>
+
+                                <br><br>
+
+                                <% if(claim.status==="Pending"){ %>
+
+                                    This claim is waiting for administrator verification.
+
+                                <% } else if(claim.status==="Approved"){ %>
+
+                                    Ownership verified successfully.
+
+                                <% } else { %>
+
+                                    Ownership could not be verified.
+
+                                <% } %>
+
+                            </div>
+
+                        </div>
+
+                        <% if(claim.status==="Pending"){ %>
+
+                            <div class="card-footer bg-white">
+
+                                <div class="d-grid gap-2">
+
+                                    <a
+
+                                        href="/approve-claim/<%= claim.id %>"
+
+                                        class="btn btn-success">
+
+                                        <i class="bi bi-check-circle-fill"></i>
+
+                                        Approve Claim
+
+                                    </a>
+
+                                    <a
+
+                                        href="/reject-claim/<%= claim.id %>"
+
+                                        class="btn btn-danger">
+
+                                        <i class="bi bi-x-circle-fill"></i>
+
+                                        Reject Claim
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
 
 </div>
 

@@ -2,128 +2,289 @@
 
 <%- include("partials/navbar") %>
 
-<div class="container">
+<div class="container py-5">
 
-    <h1>Possible Matches</h1>
+    <div class="text-center mb-5">
 
-    <br>
+        <h1 class="fw-bold">
+            🤖 Smart Match Results
+        </h1>
 
-    <h2>Lost Item</h2>
-
-    <div class="feature-card">
-
-        <h3><%= lostItem.title %></h3>
-
-        <p>
-            <strong>Category:</strong>
-            <%= lostItem.category %>
-        </p>
-
-        <p>
-            <strong>Location:</strong>
-            <%= lostItem.location %>
-        </p>
-
-        <p>
-            <strong>Description:</strong>
-            <%= lostItem.description %>
+        <p class="text-muted">
+            Our intelligent matching system has analyzed possible found items.
         </p>
 
     </div>
 
-    <br>
+    <!-- Lost Item -->
 
-    <h2>Matching Found Items</h2>
+    <div class="card shadow border-0 mb-5">
 
-    <% if(matches.length === 0){ %>
+        <div class="card-header bg-danger text-white">
 
-        <h3>No matching found items.</h3>
+            <h3>🔴 Lost Item</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <h3 class="fw-bold">
+                <%= lostItem.title %>
+            </h3>
+
+            <p>
+                <strong>Category:</strong>
+                <span class="badge bg-primary">
+                    <%= lostItem.category %>
+                </span>
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                <%= lostItem.location %>
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                <%= lostItem.description %>
+            </p>
+
+        </div>
+
+    </div>
+
+    <h2 class="mb-4">
+        🎯 Matching Found Items
+    </h2>
+
+    <% if(matches.length===0){ %>
+
+        <div class="alert alert-warning">
+
+            No matching items were found.
+
+        </div>
 
     <% } else { %>
 
-        <% matches.forEach(item => { %>
+        <div class="row">
 
-            <div class="feature-card">
+            <% matches.forEach(item=>{ %>
 
-                <h2><%= item.title %></h2>
+                <div class="col-lg-6 mb-4">
 
-                <p>
-                    <strong>Category:</strong>
-                    <%= item.category %>
-                </p>
+                    <div class="card shadow border-0 h-100">
 
-                <p>
-                    <strong>Location:</strong>
-                    <%= item.location %>
-                </p>
+                        <% if(item.image){ %>
 
-                <p>
-                    <strong>Description:</strong>
-                    <%= item.description %>
-                </p>
+                            <img
+                                src="/uploads/<%= item.image %>"
+                                class="card-img-top"
+                                style="height:250px;object-fit:cover;"
+                                alt="Found Item">
 
-                <h3 style="color:green;">
-                    Match Score: <%= item.matchScore %>%
-                </h3>
+                        <% } %>
 
-                <br>
+                        <div class="card-body">
 
-                <!-- Chat Button -->
-                <a
-                    class="btn-primary"
-                    href="/chat/<%= item.user_id %>">
-                    Contact Finder
-                </a>
+                            <h3 class="fw-bold">
 
-                <br><br>
+                                <%= item.title %>
 
-                <!-- Claim Request Form -->
-                <form action="/submit-claim" method="POST">
+                            </h3>
 
-                    <input
-                        type="hidden"
-                        name="lost_item_id"
-                        value="<%= lostItem.id %>">
+                            <p>
 
-                    <input
-                        type="hidden"
-                        name="found_item_id"
-                        value="<%= item.id %>">
+                                <span class="badge bg-success">
 
-                    <input
-                        type="hidden"
-                        name="finder_id"
-                        value="<%= item.user_id %>">
+                                    <%= item.category %>
 
-                    <label>
-                        Why do you believe this item is yours?
-                    </label>
+                                </span>
 
-                    <br><br>
+                            </p>
 
-                    <textarea
-                        name="proof"
-                        class="form-control"
-                        rows="4"
-                        required></textarea>
+                            <p>
 
-                    <br>
+                                <strong>📍 Location:</strong>
 
-                    <button
-                        type="submit"
-                        class="btn-primary">
+                                <%= item.location %>
 
-                        Request Claim
+                            </p>
 
-                    </button>
+                            <p>
 
-                </form>
+                                <strong>📝 Description:</strong>
 
-            </div>
+                                <%= item.description %>
 
-            <br>
+                            </p>
 
-        <% }) %>
+                            <hr>
+
+                            <h5>
+
+                                🤖 Smart Match Score
+
+                            </h5>
+
+                            <% if(item.matchScore>=90){ %>
+
+                                <span class="badge bg-success fs-6">
+
+                                    ⭐ <%= item.matchScore %>% • Excellent Match
+
+                                </span>
+
+                            <% }else if(item.matchScore>=70){ %>
+
+                                <span class="badge bg-primary fs-6">
+
+                                    ⭐ <%= item.matchScore %>% • Good Match
+
+                                </span>
+
+                            <% }else if(item.matchScore>=50){ %>
+
+                                <span class="badge bg-warning text-dark fs-6">
+
+                                    ⭐ <%= item.matchScore %>% • Average Match
+
+                                </span>
+
+                            <% }else{ %>
+
+                                <span class="badge bg-danger fs-6">
+
+                                    ⭐ <%= item.matchScore %>% • Low Match
+
+                                </span>
+
+                            <% } %>
+
+                            <br><br>
+
+                            <div class="progress" style="height:25px;">
+
+                                <div
+
+                                    class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+
+                                    role="progressbar"
+
+                                    style="width:<%= item.matchScore %>%">
+
+                                    <%= item.matchScore %>%
+
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                            <div class="alert alert-info">
+
+                                <strong>🤖 AI Explanation</strong>
+
+                                <ul class="mb-0">
+
+                                    <% if(item.category===lostItem.category){ %>
+
+                                        <li>✅ Same category detected</li>
+
+                                    <% } %>
+
+                                    <% if(item.location.toLowerCase().includes(lostItem.location.toLowerCase()) || lostItem.location.toLowerCase().includes(item.location.toLowerCase())){ %>
+
+                                        <li>✅ Similar location found</li>
+
+                                    <% } %>
+
+                                    <li>✅ Title similarity analyzed</li>
+
+                                    <li>📊 Overall confidence based on available information</li>
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a
+
+                                    href="/chat/<%= item.user_id %>"
+
+                                    class="btn btn-success">
+
+                                    💬 Contact Finder
+
+                                </a>
+
+                            </div>
+
+                            <br>
+
+                            <form action="/submit-claim" method="POST">
+
+                                <input
+                                    type="hidden"
+                                    name="lost_item_id"
+                                    value="<%= lostItem.id %>">
+
+                                <input
+                                    type="hidden"
+                                    name="found_item_id"
+                                    value="<%= item.id %>">
+
+                                <input
+                                    type="hidden"
+                                    name="finder_id"
+                                    value="<%= item.user_id %>">
+
+                                <label class="fw-bold">
+
+                                    Explain why this item belongs to you
+
+                                </label>
+
+                                <textarea
+
+                                    class="form-control"
+
+                                    name="proof"
+
+                                    rows="4"
+
+                                    required
+
+                                    placeholder="Provide identifying details such as color, scratches, stickers, serial number, or any unique marks."></textarea>
+
+                                <br>
+
+                                <button
+
+                                    class="btn btn-primary w-100"
+
+                                    type="submit">
+
+                                    📨 Submit Claim Request
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
 
     <% } %>
 

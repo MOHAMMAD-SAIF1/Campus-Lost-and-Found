@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
+const Email = require("../services/emailService");
 
 // Register Page
 exports.registerPage = (req, res) => {
@@ -15,7 +16,8 @@ exports.loginPage = (req, res) => {
     });
 };
 
-// Register User
+
+//Register User
 exports.registerUser = async (req, res) => {
 
     const { full_name, email, password, phone } = req.body;
@@ -35,10 +37,38 @@ exports.registerUser = async (req, res) => {
             email,
             password: hashedPassword,
             phone
-        }, (err) => {
+        }, async (err) => {
 
             if (err)
                 return res.send(err.message);
+
+            // Send Welcome Email
+            await Email.sendMail(
+
+                email,
+
+                "Welcome to Campus Lost & Found",
+
+                `
+                <h2>Welcome, ${full_name}! 👋</h2>
+
+                <p>Your account has been created successfully.</p>
+
+                <p>You can now:</p>
+
+                <ul>
+                    <li>Report Lost Items</li>
+                    <li>Report Found Items</li>
+                    <li>Submit Claims</li>
+                    <li>Track Matches</li>
+                </ul>
+
+                <p>Thank you for using our platform.</p>
+
+                <p><strong>Campus Lost & Found Team</strong></p>
+                `
+
+            );
 
             res.redirect("/login");
 

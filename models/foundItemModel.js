@@ -108,19 +108,67 @@ exports.findMatchingItems = (lostItem, callback) => {
     const sql = `
         SELECT *
         FROM found_items
-        WHERE
-            category = ?
-            AND location LIKE ?
     `;
 
-    db.all(
-        sql,
-        [
-            lostItem.category,
-            `%${lostItem.location}%`
-        ],
-        callback
-    );
+    db.all(sql, (err, items) => {
+
+        if (err) return callback(err);
+
+        const matchedItems = items.map(item => {
+
+            let score = 0;
+
+            // Category Match
+            if (
+                item.category.toLowerCase() ===
+                lostItem.category.toLowerCase()
+            ) {
+                score += 40;
+            }
+
+            // Location Match
+            if (
+                item.location
+                    .toLowerCase()
+                    .includes(lostItem.location.toLowerCase())
+                ||
+                lostItem.location
+                    .toLowerCase()
+                    .includes(item.location.toLowerCase())
+            ) {
+                score += 30;
+            }
+
+            // Title Match
+            const lostWords = lostItem.title
+                .toLowerCase()
+                .split(" ");
+
+            const foundWords = item.title
+                .toLowerCase()
+                .split(" ");
+
+            const common = lostWords.filter(word =>
+                foundWords.includes(word)
+            );
+
+            score += Math.min(common.length * 10, 30);
+
+            return {
+
+                ...item,
+
+                matchScore: score
+
+            };
+
+        });
+
+        matchedItems.sort((a, b) => b.matchScore - a.matchScore);
+
+        callback(null, matchedItems);
+
+    });
 
 };
 
@@ -136,6 +184,38 @@ exports.updateStatus = (id, status, callback) => {
         `,
         [status, id],
         callback
+    );
+
+};
+
+exports.updateFoundItem = (item, callback) => {
+
+    db.run(
+
+        `UPDATE found_items
+         SET
+            title=?,
+            category=?,
+            description=?,
+            location=?
+         WHERE id=?`,
+
+        [
+
+            item.title,
+
+            item.category,
+
+            item.description,
+
+            item.location,
+
+            item.id
+
+        ],
+
+        callback
+
     );
 
 };

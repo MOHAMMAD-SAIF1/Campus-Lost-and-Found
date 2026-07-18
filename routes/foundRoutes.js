@@ -22,4 +22,32 @@ router.get(
     foundController.searchFoundItems
 );
 
+
+// View One Found Item
+router.get(
+    "/found-item/:id",
+    foundController.showFoundItem
+);
+
+// Edit Found Item Page
+router.get(
+    "/edit-found/:id",
+    foundController.showEditFoundPage
+);
+
+// Update Found Item
+// router.post(
+//     "/edit-found/:id",
+//     foundController.updateFoundItem
+// );
+
+
+const upload = require("../config/multer");
+
+router.post(
+    "/edit-found/:id",
+    upload.single("image"),
+    foundController.updateFoundItem
+);
+
 module.exports = router;

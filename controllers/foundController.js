@@ -156,3 +156,160 @@ exports.searchFoundItems = (req, res) => {
     });
 
 };
+
+
+// View Found Item Details
+exports.viewFoundItem = (req, res) => {
+
+    FoundItem.getFoundItemById(req.params.id, (err, item) => {
+
+        if (err) return res.send(err.message);
+
+        if (!item) return res.send("Item not found");
+
+        res.render("foundDetails", {
+
+            title: "Found Item Details",
+
+            item,
+
+            user: req.session.user
+
+        });
+
+    });
+
+};
+
+// Show Edit Page
+exports.editFoundPage = (req, res) => {
+
+    FoundItem.getFoundItemById(req.params.id, (err, item) => {
+
+        if (err) return res.send(err.message);
+
+        if (!item) return res.send("Item not found");
+
+        res.render("editFound", {
+
+            title: "Edit Found Item",
+
+            item
+
+        });
+
+    });
+
+};
+
+// Update Found Item
+exports.updateFoundItem = (req, res) => {
+
+    FoundItem.getFoundItemById(req.params.id, (err, oldItem) => {
+
+        if (err) return res.send(err.message);
+
+        const updatedItem = {
+
+            id: req.params.id,
+
+            title: req.body.title,
+
+            category: req.body.category,
+
+            description: req.body.description,
+
+            location: req.body.location,
+
+            image: req.file
+                ? req.file.filename
+                : oldItem.image
+
+        };
+
+        FoundItem.updateFoundItem(updatedItem, (err) => {
+
+            if (err) return res.send(err.message);
+
+            res.redirect("/found-items");
+
+        });
+
+    });
+
+};
+
+
+
+// Show Single Found Item
+exports.showFoundItem = (req, res) => {
+
+    FoundItem.getFoundItemById(req.params.id, (err, item) => {
+
+        if (err) return res.send(err.message);
+
+        if (!item) {
+            return res.send("Item not found");
+        }
+
+        res.render("foundItemDetails", {
+
+            title: "Found Item",
+
+            item,
+
+            user: req.session.user
+
+        });
+
+    });
+
+};
+
+
+// Show Edit Page
+exports.showEditFoundPage = (req, res) => {
+
+    FoundItem.getFoundItemById(req.params.id, (err, item) => {
+
+        if (err) return res.send(err.message);
+
+        res.render("editFound", {
+
+            title: "Edit Found Item",
+
+            item
+
+        });
+
+    });
+
+};
+
+
+// Update Found Item
+exports.updateFoundItem = (req, res) => {
+
+    const item = {
+
+        id: req.params.id,
+
+        title: req.body.title,
+
+        category: req.body.category,
+
+        description: req.body.description,
+
+        location: req.body.location
+
+    };
+
+    FoundItem.updateFoundItem(item, (err) => {
+
+        if (err) return res.send(err.message);
+
+        res.redirect("/found-items");
+
+    });
+
+};

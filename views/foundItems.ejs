@@ -12,7 +12,7 @@
             </h1>
 
             <p class="text-muted">
-                Browse all found items reported on campus.
+                Browse all found items reported across the campus.
             </p>
 
         </div>
@@ -44,7 +44,7 @@
                             class="form-control"
                             name="keyword"
                             value="<%= typeof keyword !== 'undefined' ? keyword : '' %>"
-                            placeholder="Search by title, category or location">
+                            placeholder="Search by item, category or location">
 
                     </div>
 
@@ -70,9 +70,9 @@
 
     <% if(items.length===0){ %>
 
-        <div class="alert alert-warning">
+        <div class="alert alert-warning text-center">
 
-            No Found Items Available.
+            <h5>No Found Items Available</h5>
 
         </div>
 
@@ -84,23 +84,23 @@
 
                 <div class="col-lg-4 col-md-6 mb-4">
 
-                    <div class="card shadow h-100 border-0">
+                    <div class="card shadow border-0 h-100">
 
                         <img
                             src="/uploads/<%= item.image %>"
                             class="card-img-top"
-                            style="height:240px; object-fit:cover;"
-                            alt="Item Image">
+                            style="height:240px;object-fit:cover;"
+                            alt="Found Item">
 
                         <div class="card-body">
 
-                            <h4 class="fw-bold">
+                            <div class="d-flex justify-content-between align-items-center">
 
-                                <%= item.title %>
+                                <h4 class="fw-bold mb-0">
 
-                            </h4>
+                                    <%= item.title %>
 
-                            <p>
+                                </h4>
 
                                 <span class="badge bg-success">
 
@@ -108,11 +108,15 @@
 
                                 </span>
 
-                            </p>
+                            </div>
+
+                            <hr>
 
                             <p>
 
-                                <strong>Description</strong><br>
+                                <strong>Description</strong>
+
+                                <br>
 
                                 <%= item.description %>
 
@@ -122,6 +126,10 @@
 
                                 <i class="bi bi-geo-alt-fill text-danger"></i>
 
+                                <strong> Location</strong>
+
+                                <br>
+
                                 <%= item.location %>
 
                             </p>
@@ -130,19 +138,25 @@
 
                                 <i class="bi bi-person-fill text-primary"></i>
 
+                                <strong> Reported By</strong>
+
+                                <br>
+
                                 <%= item.full_name %>
 
                             </p>
 
                             <p>
 
-                                <strong>Status:</strong>
+                                <strong>Status</strong>
+
+                                <br>
 
                                 <% if(item.status==="Found"){ %>
 
                                     <span class="badge bg-primary">
 
-                                        Found
+                                        📦 Found
 
                                     </span>
 
@@ -150,7 +164,7 @@
 
                                     <span class="badge bg-success">
 
-                                        Returned
+                                        ✅ Returned
 
                                     </span>
 
@@ -158,30 +172,58 @@
 
                             </p>
 
+                            <!-- Future AI Integration -->
+
+                            <div class="alert alert-success">
+
+                                🤖 <strong>AI Status</strong>
+
+                                <br>
+
+                                Ready for Smart Matching
+
+                            </div>
+
                         </div>
 
-                        <div class="card-footer bg-white border-0">
+                        <div class="card-footer bg-white">
 
                             <div class="d-grid gap-2">
 
-                                <a href="/edit-found/<%= item.id %>"
-                                   class="btn btn-warning">
+                                <a
+                                    href="/found-item/<%= item.id %>"
+                                    class="btn btn-outline-primary">
 
-                                    <i class="bi bi-pencil-square"></i>
+                                    <i class="bi bi-eye-fill"></i>
 
-                                    Edit
-
-                                </a>
-
-                                <a href="/delete-found/<%= item.id %>"
-                                   class="btn btn-danger"
-                                   onclick="return confirm('Delete this item?')">
-
-                                    <i class="bi bi-trash-fill"></i>
-
-                                    Delete
+                                    View Details
 
                                 </a>
+
+                                <% if(item.user_id === user.id || user.role === "admin"){ %>
+
+                                    <a
+                                        href="/edit-found/<%= item.id %>"
+                                        class="btn btn-warning">
+
+                                        <i class="bi bi-pencil-square"></i>
+
+                                        Edit
+
+                                    </a>
+
+                                    <a
+                                        href="/delete-found/<%= item.id %>"
+                                        class="btn btn-danger"
+                                        onclick="return confirm('Delete this item?')">
+
+                                        <i class="bi bi-trash-fill"></i>
+
+                                        Delete
+
+                                    </a>
+
+                                <% } %>
 
                             </div>
 

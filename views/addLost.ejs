@@ -1,84 +1,310 @@
 <%- include("partials/header") %>
+
 <%- include("partials/navbar") %>
 
-<div class="form-container">
+<div class="container py-5">
 
-    <div class="form-box">
+    <div class="row justify-content-center align-items-center">
 
-        <h2>Report Lost Item</h2>
+        <!-- Left Side -->
 
-        <form action="/add-lost" method="POST" enctype="multipart/form-data">
+        <div class="col-lg-5 d-none d-lg-block">
 
-            <div class="form-group">
-                <label>Item Name</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    name="title"
-                    placeholder="Ex: Dell Laptop"
-                    required>
-            </div>
+            <div class="text-center">
 
-            <div class="form-group">
-                <label>Category</label>
+                <img
+                    src="/images/lostfound.jpg"
+                    class="img-fluid rounded shadow"
+                    alt="Lost Item">
 
-                <select class="form-control" name="category">
+                <h2 class="mt-4 fw-bold">
 
-                    <option>Laptop</option>
-                    <option>Mobile</option>
-                    <option>Wallet</option>
-                    <option>ID Card</option>
-                    <option>Bag</option>
-                    <option>Keys</option>
-                    <option>Watch</option>
-                    <option>Other</option>
+                    Lost Something?
 
-                </select>
+                </h2>
 
-            </div>
+                <p class="text-muted">
 
-            <div class="form-group">
-                <label>Description</label>
+                    Report your lost belongings with complete details so our
+                    smart matching system can help you recover them quickly.
 
-                <textarea
-                    class="form-control"
-                    rows="5"
-                    name="description"
-                    placeholder="Describe your item..."
-                    required></textarea>
+                </p>
+
+                <div class="alert alert-danger mt-4">
+
+                    <strong>🔍 Smart Matching Enabled</strong>
+
+                    <br>
+
+                    Your report will automatically be compared with all found
+                    items in the system.
+
+                </div>
 
             </div>
 
-            <div class="form-group">
-                <label>Lost Location</label>
+        </div>
 
-                <input
-                    class="form-control"
-                    type="text"
-                    name="location"
-                    placeholder="Library Block"
-                    required>
+        <!-- Right Side -->
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-danger text-white text-center py-4">
+
+                    <h2>
+
+                        <i class="bi bi-search"></i>
+
+                        Report Lost Item
+
+                    </h2>
+
+                    <p class="mb-0">
+
+                        Enter the details of your lost item.
+
+                    </p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form
+                        action="/add-lost"
+                        method="POST"
+                        enctype="multipart/form-data">
+
+                        <!-- Item Name -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Item Name
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-box-seam-fill"></i>
+
+                                </span>
+
+                                <input
+
+                                    type="text"
+
+                                    class="form-control"
+
+                                    name="title"
+
+                                    placeholder="Example: Dell Laptop"
+
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Category -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Category
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-grid-fill"></i>
+
+                                </span>
+
+                                <select
+
+                                    class="form-select"
+
+                                    name="category"
+
+                                    required>
+
+                                    <option value="">Select Category</option>
+
+                                    <option>Laptop</option>
+
+                                    <option>Mobile</option>
+
+                                    <option>Wallet</option>
+
+                                    <option>ID Card</option>
+
+                                    <option>Bag</option>
+
+                                    <option>Keys</option>
+
+                                    <option>Watch</option>
+
+                                    <option>Books</option>
+
+                                    <option>Other</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Description -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Description
+
+                            </label>
+
+                            <textarea
+
+                                class="form-control"
+
+                                rows="5"
+
+                                name="description"
+
+                                placeholder="Describe your lost item (brand, color, stickers, unique marks, etc.)"
+
+                                required></textarea>
+
+                        </div>
+
+                        <!-- Lost Location -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Lost Location
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-geo-alt-fill"></i>
+
+                                </span>
+
+                                <input
+
+                                    type="text"
+
+                                    class="form-control"
+
+                                    name="location"
+
+                                    placeholder="Example: Library Block"
+
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Upload Image -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+
+                                Upload Item Image
+
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-image-fill"></i>
+
+                                </span>
+
+                                <input
+
+                                    type="file"
+
+                                    class="form-control"
+
+                                    name="image"
+
+                                    accept="image/*">
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                Upload a clear image to improve matching accuracy.
+
+                            </small>
+
+                        </div>
+
+                        <!-- Buttons -->
+
+                        <div class="d-grid gap-2">
+
+                            <button
+
+                                type="submit"
+
+                                class="btn btn-danger btn-lg">
+
+                                <i class="bi bi-send-fill"></i>
+
+                                Report Lost Item
+
+                            </button>
+
+                            <a
+
+                                href="/lost-items"
+
+                                class="btn btn-outline-secondary">
+
+                                <i class="bi bi-arrow-left"></i>
+
+                                Back to Lost Items
+
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="card-footer bg-light text-center">
+
+                    <small class="text-muted">
+
+                        🤖 Smart Matching will compare your lost item with all reported found items automatically.
+
+                    </small>
+
+                </div>
 
             </div>
-            <div class="form-group">
 
-    <label>Upload Item Image</label>
-
-    <input
-        class="form-control"
-        type="file"
-        name="image"
-        accept="image/*">
-
-</div>
-
-            <button class="btn-submit">
-
-                Report Lost Item
-
-            </button>
-
-        </form>
+        </div>
 
     </div>
 
